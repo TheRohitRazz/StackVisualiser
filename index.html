@@ -150,6 +150,61 @@
     button:active {
         scale: .95;
     }
+
+    @media (max-width: 500px) {
+        #main {
+            flex-direction: column;
+            padding: 5vw;
+        }
+
+        .heading {
+            padding: 2vw 0;
+        }
+
+        .controll-panel {
+            width: 100%;
+            height: 80vh;
+            padding: 20vw 2vw;
+        }
+
+        .operation {
+            padding: 5vw 2vw;
+        }
+
+        .visualiser {
+            width: 100%;
+            padding: 0 2vw 5vw 2vw;
+        }
+
+        .box {
+            width: 60%;
+        }
+
+        input {
+            font-size: 3vw;
+            padding: 2vw 2vw;
+        }
+
+        button {
+            font-size: 3vw;
+            padding: 2vw 4vw;
+        }
+
+        .pop .minWidth {
+            width: 35%;
+            /* background: red; */
+        }
+
+        .pop #maxValue {
+            font-size: 3vw;
+            padding: 2vw 2vw;
+        }
+
+        .item {
+            font-size: 3vw;
+            padding: 4vw 2vw;
+        }
+    }
 </style>
 
 <body>
