@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        color: white;
+        font-family: sans-serif;
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+    }
+
+    #main {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        gap: 2vw;
+        align-items: center;
+        justify-content: center;
+        background: rgb(8, 45, 57);
+    }
+
+    .controll-panel {
+        width: 30vw;
+        height: 90vh;
+        padding: 4vw 1vw;
+        position: relative;
+        border-radius: 10px;
+        /* background: rgba(0, 66, 88, 0.477); */
+        border: 2px solid rgba(54, 205, 255, 0.468);
+    }
+
+    .visualiser {
+        width: 40vw;
+        min-height: 90vh;
+        display: flex;
+        align-items: self-end;
+        justify-content: center;
+        position: relative;
+        border-radius: 10px;
+        padding: 0 0 2vw 0;
+        border: 2px solid rgba(54, 205, 255, 0.458);
+    }
+
+    .heading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: .5vw 0;
+        text-align: center;
+        background: rgba(0, 116, 155, 0.477);
+    }
+
+    .box {
+        width: 20vw;
+        height: 75vh;
+        padding: 1.5vw;
+        gap: 1vw;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column-reverse;
+        border-radius: 0 0 10px 10px;
+        border-left: 3px solid rgb(117, 221, 255);
+        border-right: 3px solid rgb(117, 221, 255);
+        border-bottom: 3px solid rgb(117, 221, 255);
+    }
+
+    .item {
+        width: 100%;
+        padding: 1.2vw;
+        text-align: center;
+        border-radius: 10px;
+        font-size: 1.5vw;
+        border: 2px solid rgb(117, 221, 255);
+        background: rgba(1, 67, 90, 0.329);
+    }
+
+    .operation {
+        width: 100%;
+        padding: 1vw;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        border: 2px solid rgba(117, 221, 255, 0.464);
+        background: rgba(1, 67, 90, 0.329);
+    }
+
+    .pop {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .pop .minWidth {
+        width: 30%;
+    }
+
+    .pop #maxValue {
+        width: 100%;
+        padding: .5vw 1vw;
+        font-size: 1vw;
+        pointer-events: none;
+    }
+
+    .input {
+        display: flex;
+        margin-top: 10px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .input-btn {
+        width: 70%;
+        gap: 1vw;
+        display: flex;
+    }
+
+    .input-btn input {
+        width: 70%;
+    }
+
+    input {
+        font-size: 1vw;
+        border-radius: 10px;
+        padding: .2vw 1vw;
+        outline: none;
+        background: rgb(8, 45, 57);
+        border: 2px solid rgba(117, 221, 255, 0.464);
+    }
+
+    button {
+        font-size: 1.3vw;
+        border-radius: 10px;
+        padding: .3vw 1.5vw;
+        background: rgb(21, 165, 212);
+        border: 2px solid rgba(117, 221, 255, 0.464);
+    }
+
+    button:active {
+        scale: .95;
+    }
+</style>
+
+<body>
+    <div id="main">
+        <div class="controll-panel">
+            <div class="heading">
+                <h2>CONTROLL PANEL</h2>
+            </div>
+            <div class="max operation">
+                <h3>INITIALIZE STACK</h3>
+                <div class="input">
+                    <p>Max Size</p>
+                    <div class="input-btn">
+                        <input id="maxInput" type="text" placeholder="Enter Max Size">
+                        <button onclick="getMaxValue()" class="set">Set</button>
+                    </div>
+                </div>
+            </div>
+            <div class="push operation">
+                <h3>PUSH OPERATION</h3>
+                <div class="input">
+                    <p>Value</p>
+                    <div class="input-btn">
+                        <input id="itemInput" type="text" placeholder="Enter Your Value">
+                        <button onclick="pushItem()" class="set">Push</button>
+                    </div>
+                </div>
+            </div>
+            <div class="pop operation">
+                <div>
+                    <h3>POP OPERATION</h3>
+                    <div class="input">
+                        <button onclick="popItem()" class="set">Pop</button>
+                    </div>
+                </div>
+                <div class="minWidth">
+                    <h3>MAX SIZE</h3>
+                    <div class="input">
+                        <input id="maxValue" placeholder="Max Size 5">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="visualiser">
+            <div class="heading">
+                <h2>STACK VISUALISER</h2>
+            </div>
+            <div class="box">
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const stack = [];
+        let maxLength = '';
+
+
+        function getMaxValue() {
+            let maxInput = document.querySelector('#maxInput')
+            let maxValue = document.querySelector('#maxValue')
+            maxLength = maxInput.value
+            maxValue.value = maxLength
+        }
+
+        function pushItem() {
+            const value = document.getElementById('itemInput').value.trim();
+            if (!value) {
+                alert("Please enter a value.");
+                return;
+            }
+            if (stack.length >= maxLength) {
+                alert("Stack is full!");
+                return;
+            }
+            stack.push(value);
+            document.getElementById('itemInput').value = '';
+            renderStack(value);
+        }
+
+        function popItem() {
+            if (stack.length === 0) {
+                alert("Stack is empty!");
+                return;
+            }
+            stack.pop();
+            renderStack();
+        }
+
+        function renderStack(value) {
+            const container = document.querySelector('.box');
+            container.innerHTML = '';
+            stack.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'item';
+                div.textContent = `${item } Index = ${index}`;
+                // div.innerText = index ,value;
+                container.appendChild(div);
+            });
+        }
+    </script>
+
+
+</body>
+
+</html>
