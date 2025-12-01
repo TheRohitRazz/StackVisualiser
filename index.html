@@ -23,7 +23,7 @@
 
     #main {
         width: 100%;
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         gap: 2vw;
         align-items: center;
@@ -151,6 +151,7 @@
         scale: .95;
     }
 
+
     @media (max-width: 500px) {
         #main {
             flex-direction: column;
@@ -258,6 +259,7 @@
         </div>
     </div>
 
+
     <script>
         const stack = [];
         let maxLength = '';
@@ -300,7 +302,7 @@
             stack.forEach((item, index) => {
                 const div = document.createElement('div');
                 div.className = 'item';
-                div.textContent = `${item } Index = ${index}`;
+                div.textContent = `${item} Index = ${index}`;
                 // div.innerText = index ,value;
                 container.appendChild(div);
             });
